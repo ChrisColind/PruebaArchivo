@@ -13,16 +13,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;
-    public class ArchivoGUI extends JFrame{
+public class ArchivoGUI extends JFrame{
  
     public Archivo analizador;
+ 
     public JTextField campoRuta;
     public JTextField campoBusqueda;
     public JTextArea areaResultados;
-    public JButton btnExaminar;
     public JButton btnContar;
     public JButton btnBuscar;
-    public JButton btnLimpiar;
  
     public ArchivoGUI(){
         analizador = new Archivo();
@@ -30,7 +29,7 @@ import java.util.List;
         construirUI();
     }
  
-    private void configurarVentana(){
+    public void configurarVentana(){
         setTitle("Analizador de Sistema de Archivos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 550);
@@ -39,16 +38,12 @@ import java.util.List;
         setLayout(null);
     }
  
-    private void construirUI(){
+    public void construirUI(){
         JLabel lblRuta = new JLabel("Directorio raiz:");
         lblRuta.setBounds(15, 15, 110, 25);
  
         campoRuta = new JTextField();
-        campoRuta.setBounds(130, 15, 430, 25);
- 
-        btnExaminar = new JButton("Elegir raiz");
-        btnExaminar.setBounds(570, 15, 110, 25);
-        btnExaminar.addActionListener(e -> seleccionarCarpeta(e));
+        campoRuta.setBounds(130, 15, 550, 25);
  
         JLabel lblBusqueda = new JLabel("Texto busqueda:");
         lblBusqueda.setBounds(15, 55, 110, 25);
@@ -78,7 +73,6 @@ import java.util.List;
  
         add(lblRuta);
         add(campoRuta);
-        add(btnExaminar);
         add(lblBusqueda);
         add(campoBusqueda);
         add(btnContar);
@@ -87,20 +81,12 @@ import java.util.List;
         add(scroll);
     }
  
-    private void seleccionarCarpeta(ActionEvent e){
-        JFileChooser selector = new JFileChooser(campoRuta.getText().trim());
-        selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int res = selector.showOpenDialog(this);
-        if(res == JFileChooser.APPROVE_OPTION){
-            campoRuta.setText(selector.getSelectedFile().getAbsolutePath());
-        }
-    }
- 
     private void ejecutarConteo(ActionEvent e){
         String ruta = campoRuta.getText().trim();
         if(!validarRuta(ruta)){
             return;
         }
+        analizador.limpiar();
         File dir = new File(ruta);
         analizador.contarExten(dir);
  
@@ -163,4 +149,3 @@ import java.util.List;
     }
  
 }
- 
