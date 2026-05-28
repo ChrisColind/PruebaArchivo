@@ -88,7 +88,7 @@ import java.util.List;
     }
  
     private void seleccionarCarpeta(ActionEvent e){
-        JFileChooser selector = new JFileChooser();
+        JFileChooser selector = new JFileChooser(campoRuta.getText().trim());
         selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int res = selector.showOpenDialog(this);
         if(res == JFileChooser.APPROVE_OPTION){
@@ -105,12 +105,12 @@ import java.util.List;
         analizador.contarExten(dir);
  
         StringBuilder sb = new StringBuilder();
-        sb.append("=== CONTEO POR EXTENSION ===\n");
+        sb.append("===CONTEO POR EXTENSION===\n");
         sb.append("Directorio: ").append(ruta).append("\n\n");
-        sb.append("TXT:    ").append(analizador.getTxt()).append(" archivo(s)\n");
-        sb.append("JAVA:   ").append(analizador.getJava()).append(" archivo(s)\n");
-        sb.append("PDF:    ").append(analizador.getPdf()).append(" archivo(s)\n");
-        sb.append("OTROS:  ").append(analizador.getOtros()).append(" archivo(s)\n");
+        sb.append("TXT:    ").append(analizador.getTxt()).append(" archivos\n");
+        sb.append("JAVA:   ").append(analizador.getJava()).append(" archivos\n");
+        sb.append("PDF:    ").append(analizador.getPdf()).append(" archivos\n");
+        sb.append("OTROS:  ").append(analizador.getOtros()).append(" archivos\n");
  
         int total = analizador.getTxt() + analizador.getJava()
                 + analizador.getPdf() + analizador.getOtros();
@@ -136,12 +136,12 @@ import java.util.List;
         List<String> resultados = analizador.buscar(dir, busqueda);
  
         StringBuilder sb = new StringBuilder();
-        sb.append("=== BUSQUEDA POR NOMBRE ===\n");
+        sb.append("===BUSQUEDA POR NOMBRE===\n");
         sb.append("Directorio: ").append(ruta).append("\n");
         sb.append("Buscando: \"").append(busqueda).append("\"\n\n");
  
         if(resultados.isEmpty()){
-            sb.append("No se encontraron archivos que coincidan con los criterios.");
+            sb.append("No se encontraron archivos que coincidan con los puntos.");
         } else {
             sb.append("Encontrados (").append(resultados.size()).append("):\n\n");
             for(String path : resultados){
